@@ -1,161 +1,96 @@
-const products = (() => {
-    const minPrice = 100;
-    const maxPrice = 1000;
-    const names = [
-        "Abby",
-        "Angel",
-        "Annie",
-        "Baby",
-        "Bailey",
-        "Bandit",
-        "Bear",
-        "Bella",
-        "Bob",
-        "Boo",
-        "Boots",
-        "Bubba",
-        "Buddy",
-        "Buster",
-        "Cali",
-        "Callie",
-        "Casper",
-        "Charlie",
-        "Chester",
-        "Chloe",
-        "Cleo",
-        "Coco",
-        "Cookie",
-        "Cuddles",
-        "Daisy",
-        "Dusty",
-        "Felix",
-        "Fluffy",
-        "Garfield",
-        "George",
-        "Ginger",
-        "Gizmo",
-        "Gracie",
-        "Harley",
-        "Jack",
-        "Jasmine",
-        "Jasper",
-        "Kiki",
-        "Kitty",
-        "Leo",
-        "Lilly",
-        "Lily",
-        "Loki",
-        "Lola",
-        "Lucky",
-        "Lucy",
-        "Luna",
-        "Maggie",
-        "Max",
-        "Mia",
-        "Midnight",
-        "Milo",
-        "Mimi",
-        "Miss kitty",
-        "Missy",
-        "Misty",
-        "Mittens",
-        "Molly",
-        "Muffin",
-        "Nala",
-        "Oliver",
-        "Oreo",
-        "Oscar",
-        "Patches",
-        "Peanut",
-        "Pepper",
-        "Precious",
-        "Princess",
-        "Pumpkin",
-        "Rascal",
-        "Rocky",
-        "Sadie",
-        "Salem",
-        "Sam",
-        "Samantha",
-        "Sammy",
-        "Sasha",
-        "Sassy",
-        "Scooter",
-        "Shadow",
-        "Sheba",
-        "Simba",
-        "Simon",
-        "Smokey",
-        "Snickers",
-        "Snowball",
-        "Snuggles",
-        "Socks",
-        "Sophie",
-        "Spooky",
-        "Sugar",
-        "Tiger",
-        "Tigger",
-        "Tinkerbell",
-        "Toby",
-        "Trouble",
-        "Whiskers",
-        "Willow",
-        "Zoe",
-        "Zoey"
-    ];
-    const rndItem = (a) => a[Math.floor(Math.random() * a.length)];
-    const rndFloat = () => (Math.random() * (maxPrice - minPrice) + minPrice).toFixed(2);
-    const rndInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+class ProductItem {
+  constructor(product) {
+    this.title = product.title;
+    this.price = product.price;
+    this.id = product.id;
+    this.img = product.img || 'https://placehold.it/200x150';
+  }
 
-    const items = [];
-
-    const add = (totalItems) => {
-        while (totalItems--) {
-            items.push({
-                id: totalItems,
-                title: rndItem(names),
-                price: rndFloat(),
-                img: `https://placekitten.com/${rndInt(100, 400)}/${rndInt(200, 600)}`,
-                description: 'Да ведь это же КИСУЛЯ!'
-            });
-        }
-    }
-
-    return {
-        add,
-        getItems: () => items,
-    }
-})();
-
-const renderProduct = ({id = 0, title = '', price = 0, img = '', description = ''}) => {
-    if (!price) {
-        return '';
-    }
-
+  render() {
     return `
-      <div class="product">
-        <div class="productId">${id}</div>
-        <div class="productAside" style="background-image: url('${img}')"></div>
-        <div class="productDetails">
-            <div class="productData">
-              <div class="productTitle">${title}</div>
-              <div class="productPrice">${price}</div>
-            </div>
-            <div class="productControls">
-              <div class="productDescription">${description}</div>
-              <button class="productButton" data-id="${id}">Мне такое надо!</button>
-            </div>
+      <div class="product" data-id="${this.id}">
+        <div class="productDetails" style="background-image: url('${this.img}')">
+              <div class="productTitle">${this.title}</div>
+              <div class="productPrice">${this.price}\u20bd</div>
+              <button class="productButton">В корзину</button>
         </div>
+        <div class="productId">${this.id}</div>
       </div>
-  `;
-};
-
-const renderProducts = () => {
-    products.add(120);
-    document.querySelector('.products').innerHTML = products.getItems().map(renderProduct).join('');
+    `;
+  }
 }
 
-renderProducts();
+class ProductList {
+  #privateProp;
+
+  constructor(container = '.products') {
+    this.container = container;
+    this.goods = [];
+    this.allProducts = [];
+    this.#privateProp = '123';
+
+    this.#fetchProducts();
+    this.render();
+    this.renderTotal();
+  }
+
+  get prop() {
+    return this.#privateProp;
+  }
+
+  set prop(value) {
+    this.#privateProp = value;
+  }
+
+  #fetchProducts() {
+    this.goods = [
+      {id: 1, title: 'Notebook', price: 20000},
+      {id: 2, title: 'Mouse', price: 1500},
+      {id: 3, title: 'Keyboard', price: 5000, img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MLA22LL?wid=890&hei=890&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1496944005839' },
+      {id: 4, title: 'Gamepad', price: 4500},
+    ];
+  }
+
+  getTotal() {
+      return this.goods.reduce((a, good) => a + good.price, 0);
+  }
+
+  addProduct(id) {
+      id = parseInt(id, 10);
+
+      this.goods.push(
+          this.goods.find(good => good.id === id)
+      );
+  }
+
+  renderTotal() {
+      document.getElementById('cart-total').innerHTML = `
+        Всего ${this.goods.length} на ${this.getTotal()} \u20bd
+      `;
+  }
+
+  render() {
+    const block = document.querySelector(this.container);
+
+    for (let product of this.goods) {
+      const productObject = new ProductItem(product);
+
+      this.allProducts.push(productObject);
+      block.insertAdjacentHTML('beforeend', productObject.render());
+    }
+  }
+}
+
+const list = new ProductList();
+
+Array.from(document.querySelectorAll('.product'))
+    .forEach(el => {
+        el.addEventListener('click', () => {
+            list.addProduct(el.dataset.id);
+            list.renderTotal();
+        });
+    });
+
 
 
 document.getElementById('logo')
