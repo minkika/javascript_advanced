@@ -98,16 +98,6 @@ body {
     transform: translate(-50%, -50%);
     color: rgba(255,255,255,.3);
 }
-.productAside {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-    background-size: cover;
-    background-position: 50% 50%;
-}
 .productData {
     position: relative;
     padding: 6px 12px;
@@ -143,40 +133,11 @@ body {
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    position: absolute;
-    top: calc(100% - 42px);
+    background-size: cover;
+    background-position: 50% 50%;
     width: 100%;
+    height: 100%;
     z-index: 1;
-    transition: top 500ms ease-in-out;
-    background-color: rgba(255,255,255,.6);
-    border-top: 2px solid #c51049;
-}
-.productControls {
-    border-top: 2px solid #c51049;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-content: center;
-    width: 100%;
-    padding: 6px 12px;
-    position: relative;
-    height: 100%;
-    overflow: auto;
-}
-.productDescription {
-    margin-bottom: 12px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #323232;
-    text-shadow: 1px 1px 0 rgba(0,0,0,.6);
-    display: inline-flex;
-    text-align: center;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    overflow: auto;
 }
 .productButton {
     appearance: none;
@@ -184,7 +145,6 @@ body {
     font-size: 14px;
     background: #de343b;
     color: rgba(255,255,255,.95);
-    border-radius: 3px;
     border: 1px solid #f16f43;
     box-shadow: 0 3px 0 #c51049;
     outline: none;
@@ -195,11 +155,4 @@ body {
 .productButton:active {
   transform: translateY(3px);
   box-shadow: 0 0 0 #c51049;
-}
-.product:hover {
-}
-.product:focus .productDetails,
-.product:hover .productDetails {
-  top: 0;
-  transition: top 500ms ease-in-out;
 }
