@@ -1,4 +1,4 @@
-# javascrpt_advanced
+# javascript_advanced
 Набор домашних заданий к курсу GeekBrains "Продвинутый курс Javascript"
 
 ## Урок 1. Современный JavaScript
