@@ -11,13 +11,8 @@
     <header>
         <div class="logo">Интернет-магазин</div>
         <div class="cart">
-            <form action="#" class="search-form">
-                <input v-model="searchLine" type="text" class="search-field">
-                <button class="btn-search" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-            <button v-on:click="isVisibleCart = !isVisibleCart" class="btn-cart" type="button">Корзина {{cartTotal}}</button>
+            <search @search="searchLine = $event"></search>
+            <cart @toggle="isVisibleCart = $event" :is-visible-cart='isVisibleCart' :cart-total="cartTotal"></cart>
         </div>
     </header>
     <main v-bind:class="getMainClass()">
@@ -33,13 +28,13 @@
                 </div>
             </template>
             <template v-else>
-                <div>Нет данных</div>
+                <message :text="getErrorMessage"></message>
             </template>
         </div>
 
         <div class="cart" v-if="isVisibleCart">
             <div class="cart-item" v-for="product of cart" :key="product.id">
-                <h3>{{product.data.product_name}}
+                <h3>{{product.data.product_name}}</h3>
                 <p>
                     <span>{{product.qty}}</span>
                     <span>x</span>
@@ -51,10 +46,13 @@
         </div>
     </main>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/search.js"></script>
+<script src="js/message.js"></script>
+<script src="js/main.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
         integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="js/main.js"></script>
 </body>
 </html>
