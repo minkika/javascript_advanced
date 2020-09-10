@@ -1,0 +1,17 @@
+[
+  {
+    "quantity": 5,
+    "product_name": "Keyboard",
+    "price": 1600
+  },
+  {
+    "quantity": 5,
+    "product_name": "11",
+    "price": 3000
+  },
+  {
+    "quantity": 1,
+    "product_name": "6",
+    "price": 2000
+  }
+]

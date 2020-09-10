@@ -1,0 +1,45 @@
+[
+  {
+    "id": 31,
+    "product_name": "Keyboard",
+    "product_description": "Описание",
+    "price": 1600,
+    "img": "public/img/product-31.png"
+  },
+  {
+    "id": 11,
+    "product_name": "11",
+    "price": 3000,
+    "img": "public/img/product-11.png"
+  },
+  {
+    "id": 31,
+    "product_name": "31",
+    "price": 1000,
+    "img": "public/img/product-31.png"
+  },
+  {
+    "id": 21,
+    "product_name": "21",
+    "price": 2000,
+    "img": "public/img/product-21.png"
+  },
+  {
+    "id": 41,
+    "product_name": "41",
+    "price": 2000,
+    "img": "public/img/product-41.png"
+  },
+  {
+    "id": 5,
+    "product_name": "5",
+    "price": 2000,
+    "img": "public/img/product-5.png"
+  },
+  {
+    "id": 6,
+    "product_name": "6",
+    "price": 2000,
+    "img": "public/img/product-6.png"
+  }
+]
